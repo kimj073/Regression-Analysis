@@ -1,12 +1,3 @@
----
-title: "__STA MID-SEMESTER EXAM__"
-author: "__Jessica Kimani__"
-date: "2024-02-22"
-output:
-  pdf_document: default
-  html_document: default
----
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -101,6 +92,7 @@ regression_plot = ggplot(mtcars, aes(x = hp, y = mpg)) +
 
 regression_plot
 ```
+
 
 
 
