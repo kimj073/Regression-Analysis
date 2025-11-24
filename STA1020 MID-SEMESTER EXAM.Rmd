@@ -1,0 +1,106 @@
+---
+title: "__STA MID-SEMESTER EXAM__"
+author: "__Jessica Kimani__"
+date: "2024-02-22"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(ggplot2)
+```
+
+# Descriptive Statistics
+
+The `mtcars` dataset is made up of 11 numeric variables which form the columns and 32 observations which form the rows.
+
+```{r}
+mtcars
+```
+
+```{r}
+# Calculating the mean for hp and mpg
+mean_hp = mean(mtcars$hp)
+mean_mpg = mean(mtcars$mpg)
+
+mean_hp
+mean_mpg
+```
+
+```{r}
+# Calculating the standard deviation for hp and mpg
+std_hp = sd(mtcars$hp)
+std_mpg = sd(mtcars$mpg)
+
+std_hp
+std_mpg
+```
+
+```{r}
+# Getting the five-number summary for hp and mpg
+fivenum(mtcars$hp)
+fivenum(mtcars$mpg)
+```
+
+## Interpretation
+
+The standard deviations of both variables are lower than their means, thus suggesting a decreased level of variability and dispersion of the data points. The variables can then be described to be generally stable as the data points are not really that far spread out from the mean.
+
+The medians of the variables are also lower than their standard deviations. This suggests a positively skewed distribution when plotted on a graph thus showing that there are a few large values/ data points in the variables.
+
+The minimum values and first quartiles if the variables seem to behaving in the opposite manner as they are higher than the standard deviation.This prooves the previous observations in regards to the medians and standard deviation. Lower standard deviations when compared to the minimum values and first quartiles suggest that a significant part of the data is concentrated in the lower value range, thus few large values, and low variability. 
+
+# Pearsons Correlation Analysis
+
+This type of correlation measures the relationship between two quantitative continuous variables that are seen to have a linear association.
+
+```{r}
+correlation_coeffs = cor(mtcars)
+correlation_coeffs["hp","mpg" ]
+```
+
+## Interpretation
+
+A correlation coefficient of -0.7762 suggests a strong negative correlation with negative association between the two variables; `hp` and `mpg`. As one decreases, the other increases.
+
+# Simple Regression Model
+
+```{r}
+regression_model = lm(mpg ~ hp, data = mtcars)
+regression_model
+summary(regression_model)
+```
+
+## Regression Equation
+
+Taking the equation y = mx + c, which is a representation of a simple linear regression model equation, lets replace y with mpg and have the x be hp, thus creating the equation:
+
+              Miles Per Gallon = 30.09886 - 0.06823 (Gross horsepower)
+
+## Interpretation
+
+Fitting the regression model for the data produces an output that suggests a negative association because the the slope/gradient(-0.06823) is negative, thus showing a negative correlation, therefore, a negative association. This then suggests as the x variable increases, the y variable decreases, meaning that the miles covered per gallon of fuel decreases the horsepower used by the observed automobiles increases.
+
+## Plotting a Scatter Plot together with a Regression Line
+ 
+To achieve this plot, functions from the `ggplot2`library/package were used where `geom_point()` plotted the scatter plot and `geom_smooth()` plotted the regression line better known as the trend line/ slope.
+
+```{r}
+regression_plot = ggplot(mtcars, aes(x = hp, y = mpg)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "darkgreen") +
+  labs(title = "Scatter Plot with Regression Line",
+       x = "Horsepower", 
+       y = "Miles Per Gallon")
+
+regression_plot
+```
+
+
+
